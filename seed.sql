@@ -14,7 +14,7 @@ INSERT INTO department (names)
 VALUES ('Finance');
 
 
--- ROLES - title, salary, department_id
+-- ROLES - title, salary, department_id 
 INSERT INTO roles (title, salary, department_id)
 VALUES ('Sales', 80000, 1);
 
