@@ -18,13 +18,13 @@ VALUES ('Finance');
 INSERT INTO roles (title, salary, department_id)
 VALUES ('Sales', 80000, 1);
 
-INSERT INTO roles (itle, salary, department_id)
+INSERT INTO roles (title, salary, department_id)
 VALUES ('Engineer', 150000, 2);
 
-INSERT INTO roles (itle, salary, department_id)
+INSERT INTO roles (title, salary, department_id)
 VALUES ('Legal', 90000, 3);
 
-INSERT INTO roles (itle, salary, department_id)
+INSERT INTO roles (title, salary, department_id)
 VALUES ('Finance', 100000, 4);
 
 
