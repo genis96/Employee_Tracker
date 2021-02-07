@@ -4,7 +4,7 @@ const mysql = require('mysql');
 
 let connection = mysql.createConnection({
     host: 'localhost',
-    port: 3000,
+    port: 3306,
     user: 'root',
     password: '',
     database: 'employees_db'
@@ -33,7 +33,7 @@ function startApp() {
         ],
         name: 'choice'
     }).then(function(answer) {
-        console.log(answer.choice);
+        // console.log(answer.choice);
         switch(answer.choice) {
             case 'View Employees':
                 viewEmployees()
@@ -52,6 +52,9 @@ function startApp() {
                 break;
             case 'Update Employee Role':
                 updateEmployeeRole()
+                break;
+            default:
+                connection.end()
                 break;
         }
     })
