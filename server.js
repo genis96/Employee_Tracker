@@ -47,6 +47,9 @@ function startApp() {
             case 'Remove Employee':
                 removeEmployee()
                 break;
+            case 'Add Department':
+                addDepartment()
+                break;
             case 'Add Role':
                 addRole()
                 break;
@@ -64,6 +67,8 @@ function viewEmployees() {}
 function viewDepartments() {}
 function addEmployee() {}
 function removeEmployee() {}
+function addDepartment() {}
+function addRole() {}
 function updateEmployeeRole() {}
 
 
