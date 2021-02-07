@@ -63,12 +63,29 @@ function startApp() {
     })
 }
 
-function viewEmployees() {}
-function viewDepartments() {}
-function addEmployee() {}
+function viewEmployees() {
+    connection.query('SELECT * FROM employee', (err, data) => {
+        console.table(data);
+        startApp();
+    })
+}
+
+function viewDepartments() {
+    connection.query('SELECT * FROM department', (err, data) => {
+        console.log(data);
+        startApp();
+    })
+}
+
+function addEmployee() {
+}
+
 function removeEmployee() {}
+
 function addDepartment() {}
+
 function addRole() {}
+
 function updateEmployeeRole() {}
 
 
