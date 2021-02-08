@@ -1,12 +1,13 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql');
 // const table = require('console.table');
+// require("console.table");
 
 let connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: '',
+    password: 'Nightfloat77$',
     database: 'employees_db'
 });
 
@@ -64,20 +65,25 @@ function startApp() {
 }
 
 function viewEmployees() {
-    connection.query('SELECT * FROM employee', (err, data) => {
-        console.table(data);
+    // connection.query('SELECT * FROM employee', (err, res) => {
+        connection.query('SELECT e.id, e.first_name, e.last_name, d.name AS department, r.title, r.salary, CONCAT_WS(" ", m.first_name, m.last_name) AS manager FROM employee e LEFT JOIN employee m ON m.id = e.manager_id INNER JOIN role r ON e.role_id = r.id INNER JOIN department d ON r.department_id = d.id ORDER BY e.id ASC', (err, res) => {
+        // if(err) throw err;
+        console.table(res);
+        console.log('Employees viewed!\n');
         startApp();
     })
 }
 
 function viewDepartments() {
-    connection.query('SELECT * FROM department', (err, data) => {
-        console.log(data);
+    connection.query('SELECT * FROM department', (err, res) => {
+        console.log(res);
+        console.log('Departments viewed!\n');
         startApp();
     })
 }
 
 function addEmployee() {
+
 }
 
 function removeEmployee() {}
