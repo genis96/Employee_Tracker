@@ -13,7 +13,7 @@ let connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if(err) throw err;
-    console.log("connected as id " + connection.threadId + "\n");
+    // console.log("connected as id " + connection.threadId + "\n");
     startApp();
 });
 
@@ -83,12 +83,52 @@ function viewDepartments() {
 }
 
 function addEmployee() {
-
+    inquirer
+    .prompt([
+        {
+            type: 'input',
+            name: 'firstName',
+            message: 'What is the employees first name?'
+        },
+        {
+            type: 'input',
+            name: 'lastName',
+            message: 'What is the employees last name?'
+        },
+        {
+            type: 'number',
+            name: 'roleId',
+            message: 'What is the employees ID?'
+        },
+        {
+            type: 'number',
+            name: 'managerId',
+            message: 'What is the employees manager ID?'
+        },
+    ]).then(function(res) {
+        connection.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [res.firstName, res.lastName, res.roleId, res.managerId], function(err, data) {
+            if (err) throw err;
+            console.table("Successfully Inserted");
+            startApp();
+        })
+    })
 }
 
 function removeEmployee() {}
 
-function addDepartment() {}
+function addDepartment() {
+    inquirer.prompt([{
+        type: "input",
+        name: "department",
+        message: "What is the department that you want to add?"
+    }, ]).then(function(res) {
+        connection.query('INSERT INTO department (name) VALUES (?)', [res.department], function(err, res) {
+            if (err) throw err;
+            console.table("Successfully Inserted");
+            askQuestions();
+        })
+    })
+}
 
 function addRole() {}
 
