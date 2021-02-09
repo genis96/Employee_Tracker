@@ -156,19 +156,22 @@ function addRole() {
 }
 
 function updateEmployeeRole() {
-    inquirer
-    .prompt([
+    inquirer.prompt([
         {
-            message: "Enter Employee First Name To Update:",
+            message: "Which employee will you update?",
             type: "input",
             name: "name"
-        },
-        {
-            message: "Enter Updated Role ID:",
+        }, {
+            message: "Enter The New Role ID:",
             type: "number",
-            name: "name"
+            name: "role_id"
         }
-    ])
+    ]).then(function (res) {
+        connection.query("UPDATE employee SET role_id = ? WHERE first_name = ?", [res.role_id, res.name], function (err, res) {
+            console.table(res);
+        })
+        startApp();
+    })
 }
 
 
