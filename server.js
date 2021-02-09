@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config(); //try now
 const inquirer = require('inquirer');
 const mysql = require('mysql');
 require("console.table");
