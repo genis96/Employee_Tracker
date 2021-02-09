@@ -66,7 +66,7 @@ function startApp() {
 
 function viewEmployees() {
     connection.query('SELECT * FROM employee', (err, res) => {
-        // connection.query('SELECT e.id, e.first_name, e.last_name, d.name AS department, r.title, r.salary, CONCAT_WS(" ", m.first_name, m.last_name) AS manager FROM employee e LEFT JOIN employee m ON m.id = e.manager_id INNER JOIN role r ON e.role_id = r.id INNER JOIN department d ON r.department_id = d.id ORDER BY e.id ASC', (err, res) => {
+        // connection.query('SELECT e.id, e.first_name, e.last_name, d.names AS department, r.title, r.salary, CONCAT_WS(" ", m.first_name, m.last_name) AS manager FROM employee e LEFT JOIN employee m ON m.id = e.manager_id INNER JOIN role r ON e.role_id = r.id INNER JOIN department d ON r.department_id = d.id ORDER BY e.id ASC', (err, res) => {
         // if(err) throw err;
         console.table(res);
         console.log('Employees viewed!\n');
@@ -131,7 +131,28 @@ function addDepartment() {
     })
 }
 
-function addRole() {}
+function addRole() {
+    inquirer.prompt([
+        {
+            message: "Enter Title:",
+            type: "input",
+            name: "title"
+        }, {
+            message: "Enter Salary:",
+            type: "number",
+            name: "salary"
+        }, {
+            message: "Enter Department ID:",
+            type: "number",
+            name: "department_id"
+        }
+    ]).then(function (res) {
+        connection.query("INSERT INTO roles (title, salary, department_id) values (?, ?, ?)", [res.title, res.salary, res.department_id], function (err, res) {
+            console.table(res);
+        })
+        startApp();
+    })
+}
 
 function updateEmployeeRole() {}
 
