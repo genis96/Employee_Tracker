@@ -66,7 +66,7 @@ function startApp() {
 
 function viewEmployees() {
     connection.query('SELECT * FROM employee', (err, res) => {
-        // connection.query('SELECT e.id, e.first_name, e.last_name, d.name AS department, r.title, r.salary, CONCAT_WS(" ", m.first_name, m.last_name) AS manager FROM employee e LEFT JOIN employee m ON m.id = e.manager_id INNER JOIN role r ON e.role_id = r.id INNER JOIN department d ON r.department_id = d.id ORDER BY e.id ASC', (err, data) => {
+        // connection.query('SELECT e.id, e.first_name, e.last_name, d.name AS department, r.title, r.salary, CONCAT_WS(" ", m.first_name, m.last_name) AS manager FROM employee e LEFT JOIN employee m ON m.id = e.manager_id INNER JOIN role r ON e.role_id = r.id INNER JOIN department d ON r.department_id = d.id ORDER BY e.id ASC', (err, res) => {
         // if(err) throw err;
         console.table(res);
         console.log('Employees viewed!\n');
@@ -76,7 +76,7 @@ function viewEmployees() {
 
 function viewDepartments() {
     connection.query('SELECT * FROM department', (err, res) => {
-        console.log(res);
+        console.table(res);
         console.log('Departments viewed!\n');
         startApp();
     })
@@ -106,7 +106,7 @@ function addEmployee() {
             message: 'What is the employees manager ID?'
         },
     ]).then(function(res) {
-        connection.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [res.firstName, res.lastName, res.roleId, res.managerId], function(err, data) {
+        connection.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [res.firstName, res.lastName, res.roleId, res.managerId], function(err, res) {
             if (err) throw err;
             console.table("Successfully Inserted");
             startApp();
