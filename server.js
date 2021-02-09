@@ -132,7 +132,8 @@ function addDepartment() {
 }
 
 function addRole() {
-    inquirer.prompt([
+    inquirer
+    .prompt([
         {
             message: "Enter Title:",
             type: "input",
@@ -154,7 +155,21 @@ function addRole() {
     })
 }
 
-function updateEmployeeRole() {}
+function updateEmployeeRole() {
+    inquirer
+    .prompt([
+        {
+            message: "Enter Employee First Name To Update:",
+            type: "input",
+            name: "name"
+        },
+        {
+            message: "Enter Updated Role ID:",
+            type: "number",
+            name: "name"
+        }
+    ])
+}
 
 
 
