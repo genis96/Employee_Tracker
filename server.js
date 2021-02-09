@@ -108,7 +108,7 @@ function addEmployee() {
     ]).then(function(res) {
         connection.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [res.firstName, res.lastName, res.roleId, res.managerId], function(err, res) {
             if (err) throw err;
-            console.table("Successfully Inserted");
+            console.table("Successfully Inserted New Employee");
             startApp();
         })
     })
@@ -117,15 +117,16 @@ function addEmployee() {
 function removeEmployee() {}
 
 function addDepartment() {
-    inquirer.prompt([{
+    inquirer
+    .prompt([{
         type: "input",
         name: "department",
         message: "What is the department that you want to add?"
     }, ]).then(function(res) {
-        connection.query('INSERT INTO department (name) VALUES (?)', [res.department], function(err, res) {
+        connection.query('INSERT INTO department (names) VALUES (?)', [res.department], function(err, res) {
             if (err) throw err;
             console.table("Successfully Inserted");
-            askQuestions();
+            startApp();
         })
     })
 }
