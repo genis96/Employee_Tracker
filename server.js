@@ -1,7 +1,6 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql');
-// const table = require('console.table');
-// require("console.table");
+require("console.table");
 
 let connection = mysql.createConnection({
     host: 'localhost',
@@ -16,6 +15,25 @@ connection.connect(function(err) {
     // console.log("connected as id " + connection.threadId + "\n");
     startApp();
 });
+
+console.log(`╔═════════════════════════════════════════════════════╗
+║                                                     ║
+║     _____                 _                         ║
+║    | ____|_ __ ___  _ __ | | ___  _   _  ___  ___   ║
+║    |  _| | '_ \` _ \\| '_ \\| |/ _ \\| | | |/ _ \\/ _ \\  ║
+║    | |___| | | | | | |_) | | (_) | |_| |  __/  __/  ║
+║    |_____|_| |_| |_| .__/|_|\\___/ \\__, |\\___|\\___|  ║
+║                    |_|            |___/             ║
+║                                                     ║
+║     __  __                                          ║
+║    |  \\/  | __ _ _ __   __ _  __ _  ___ _ __        ║
+║    | |\\/| |/ _\` | '_ \\ / _\` |/ _\` |\/ _ \\ '__|       ║
+║    | |  | | (_| | | | | (_| | (_| |  __/ |          ║
+║    |_|  |_|\\__,_|_| |_|\\__,_|\\__, |\\___|_|          ║
+║                              |___/                  ║
+║                                                     ║
+\╚═════════════════════════════════════════════════════╝
+`);
 
 function startApp() {
     inquirer
@@ -114,7 +132,20 @@ function addEmployee() {
     })
 }
 
-function removeEmployee() {}
+function removeEmployee() {
+    inquirer.prompt([
+        {
+            message: "Which employee will you remove?",
+            type: "input",
+            name: "name"
+        },
+    ]).then(function (res) {
+        connection.query("SELECT employee SET role_id = ? WHERE first_name = ?", [res.name], function (err, res) {
+            console.table(res);
+        })
+        startApp();
+    })
+}
 
 function addDepartment() {
     inquirer
