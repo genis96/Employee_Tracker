@@ -1,4 +1,4 @@
-require('dotenv').config(); //try now
+// require('dotenv').config(); //try now
 const inquirer = require('inquirer');
 const mysql = require('mysql');
 require("console.table");
@@ -13,7 +13,7 @@ let connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if(err) throw err;
-    // console.log("connected as id " + connection.threadId + "\n");
+    console.log("connected as id " + connection.threadId + "\n");
     startApp();
 });
 
@@ -85,8 +85,6 @@ function startApp() {
 
 function viewEmployees() {
     connection.query('SELECT * FROM employee', (err, res) => {
-        // connection.query('SELECT e.id, e.first_name, e.last_name, d.names AS department, r.title, r.salary, CONCAT_WS(" ", m.first_name, m.last_name) AS manager FROM employee e LEFT JOIN employee m ON m.id = e.manager_id INNER JOIN role r ON e.role_id = r.id INNER JOIN department d ON r.department_id = d.id ORDER BY e.id ASC', (err, res) => {
-        // if(err) throw err;
         console.table(res);
         console.log('Employees viewed!\n');
         startApp();
@@ -134,18 +132,20 @@ function addEmployee() {
 }
 
 function removeEmployee() {
-    inquirer.prompt([
+    let answer = inquirer.prompt([
         {
-            message: "Which employee will you remove?",
-            type: "input",
-            name: "name"
+            message: 'Which employee will you remove? By ID: ',
+            type: 'number',
+            name: 'first'
         },
     ]).then(function (res) {
-        connection.query("SELECT employee SET role_id = ? WHERE first_name = ?", [res.name], function (err, res) {
-            console.table(res);
+        connection.query("DELETE FROM employee WHERE ?", {id: answer.first}, function (err) {
+            // console.table(res);
+            if(err) throw err;
         })
-        startApp();
     })
+    console.log('Employee has been removeed from system!');
+    startApp();
 }
 
 function addDepartment() {
@@ -207,4 +207,4 @@ function updateEmployeeRole() {
 }
 
 
-
+// startApp();
